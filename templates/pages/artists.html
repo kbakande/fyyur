@@ -1,0 +1,34 @@
+{% extends 'layouts/main.html' %}
+{% block title %}Fyyur | Artists{% endblock %}
+{% block content %}
+<ul class="items">
+	{% for artist in artists %}
+	<!-- <li>
+		<a href="/artists/{{ artist.id }}">
+			<i class="fas fa-users"></i>
+			<div class="item">
+				<h5>{{ artist.name }}</h5>
+			</div>
+		</a>
+	</li> -->
+
+	<li>
+		<div style="width: 100%; text-align: left;">
+			<div style="display: inline-block;">
+				<a href="/artists/{{ artist.id }}" class = "href">
+					<i class="fas fa-users" style="display: inline-block;"></i>
+					<div class="item" style="display: inline-block;">
+						<h5 >{{ artist.name }} </h5>
+					</div>
+				</a>
+			</div>
+			<button class = "vBtn" data-id = "{{ artist.id }}" style="outline: none; display: inline-block; margin: none; border: none; cursor: pointer; font-size: 20px;"> 
+				 <i class="fa fa-trash" aria-hidden="true"></i> </i></button>
+			<button class = "editBtn" data-id = "{{ artist.id }}" style="outline: none; display: inline-block; margin: none; border: none; cursor: pointer; font-size: 20px;"> 
+					  <i class="fa fa-edit" aria-hidden="true"></i></button>
+				
+		</div>
+	</li>
+	{% endfor %}
+</ul>
+{% endblock %}
