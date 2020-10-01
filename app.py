@@ -27,7 +27,6 @@ moment = Moment(app)
 app.config.from_object('config')
 db = SQLAlchemy(app)
 
-# TODO: connect to a local postgresql database
 migrate = Migrate(app, db)
 
 #----------------------------------------------------------------------------#
@@ -46,7 +45,6 @@ class Venue(db.Model):
     image_link = db.Column(db.String(500))
     facebook_link = db.Column(db.String(120))
 
-    # TODO: implement any missing fields, as a database migration using Flask-Migrate
     genres = db.Column(ARRAY(db.String(120)))
     website_link = db.Column(db.String(120))
     seeking_talent = db.Column(db.Boolean)
@@ -65,14 +63,13 @@ class Artist(db.Model):
     image_link = db.Column(db.String(500))
     facebook_link = db.Column(db.String(120))
 
-    # TODO: implement any missing fields, as a database migration using Flask-Migrate
+
     website_link = db.Column(db.String(120))
     seeking_venue = db.Column(db.Boolean)
     seeking_description = db.Column(db.String(500))
     shows = db.relationship('Show', backref = db.backref('artist', lazy=True))
 
 
-# TODO Implement Show and Artist models, and complete all model relationships and properties, as a database migration.
 class Show(db.Model):
   __tablename__= 'shows'
 
@@ -266,7 +263,7 @@ def artists():
 
 @app.route('/artists/search', methods=['POST'])
 def search_artists():
-  # case-insensearch 
+  # case-insensitive search 
   searchTerm = request.form.get("search_term", "")
   searchTerm = "%{}%".format(searchTerm)
   searchArtists = Artist.query.filter(or_(Artist.name.ilike(searchTerm), Artist.city.ilike(searchTerm), Artist.state.ilike(searchTerm))).all()
