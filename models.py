@@ -4,19 +4,9 @@ from sqlalchemy import Column, Integer, String, Boolean
 from sqlalchemy.dialects.postgresql import ARRAY
 from flask_sqlalchemy import SQLAlchemy
 
-# from os.path import join, dirname
-# from dotenv import load_dotenv
-
-# dotenv_path = join(dirname(__file__), '.env')
-# load_dotenv(dotenv_path)
-
-# dbpath = os.environ['DATABASE_URL']
-
 db = SQLAlchemy()
 
 def setup_db(app):#, database_path=dbpath):
-    # app.config["SQLALCHEMY_DATABASE_URI"] = dbpath
-    # app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.app = app
     db.init_app(app)
     # db.create_all()

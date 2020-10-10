@@ -7,7 +7,6 @@ import babel
 from flask import Flask, render_template, request, Response, flash, redirect, jsonify, url_for
 from flask_moment import Moment
 from flask_cors import CORS
-from sqlalchemy.dialects.postgresql import ARRAY
 from sqlalchemy import or_
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -37,56 +36,6 @@ def create_app(test_config=None):
   moment.init_app(app)
   migrate.init_app(app)
 
-  # #----------------------------------------------------------------------------#
-  # # Models.
-  # #----------------------------------------------------------------------------#
-
-  # class Venue(db.Model):
-  #     __tablename__ = 'venues'
-
-  #     id = db.Column(db.Integer, primary_key=True)
-  #     name = db.Column(db.String)
-  #     city = db.Column(db.String(120))
-  #     state = db.Column(db.String(120))
-  #     address = db.Column(db.String(120))
-  #     phone = db.Column(db.String(120))
-  #     image_link = db.Column(db.String(500))
-  #     facebook_link = db.Column(db.String(120))
-
-  #     genres = db.Column(ARRAY(db.String(120)))
-  #     website_link = db.Column(db.String(120))
-  #     seeking_talent = db.Column(db.Boolean)
-  #     seeking_description = db.Column(db.String(500))
-  #     shows = db.relationship('Show', backref= db.backref('venue', lazy=True))
-
-  # class Artist(db.Model):
-  #     __tablename__ = 'artists'
-
-  #     id = db.Column(db.Integer, primary_key=True)
-  #     name = db.Column(db.String)
-  #     city = db.Column(db.String(120))
-  #     state = db.Column(db.String(120))
-  #     phone = db.Column(db.String(120))
-  #     genres = db.Column(ARRAY(db.String(120)))
-  #     image_link = db.Column(db.String(500))
-  #     facebook_link = db.Column(db.String(120))
-
-
-  #     website_link = db.Column(db.String(120))
-  #     seeking_venue = db.Column(db.Boolean)
-  #     seeking_description = db.Column(db.String(500))
-  #     shows = db.relationship('Show', backref = db.backref('artist', lazy=True))
-
-
-  # class Show(db.Model):
-  #   __tablename__= 'shows'
-
-  #   id = db.Column(db.Integer, primary_key=True)
-  #   artist_id = db.Column(db.Integer, db.ForeignKey('artists.id'), nullable=False)
-  #   venue_id = db.Column(db.Integer, db.ForeignKey('venues.id'), nullable=False)
-  #   start_time = db.Column(db.DateTime, nullable=False)
-
-
   #----------------------------------------------------------------------------#
   # Filters.
   #----------------------------------------------------------------------------#
@@ -108,7 +57,6 @@ def create_app(test_config=None):
   @app.route('/')
   def index():
     return render_template('pages/home.html')
-
 
   #  Venues
   #  ----------------------------------------------------------------
@@ -413,7 +361,6 @@ def create_app(test_config=None):
       flash_errors(form)
       return render_template('forms/edit_venue.html', form=form, venue=existVenue)
 
-
   #  ----------------------------------------------------------------
   #  Create Artist
   #  ----------------------------------------------------------------
@@ -565,7 +512,6 @@ def create_app(test_config=None):
   def server_error(error):
       return render_template('errors/500.html'), 500
 
-
   if not app.debug:
       file_handler = FileHandler('error.log')
       file_handler.setFormatter(
@@ -576,23 +522,6 @@ def create_app(test_config=None):
       app.logger.addHandler(file_handler)
       app.logger.info('errors')
 
-  
   return app
 
-
 app = create_app()
-
-  # #----------------------------------------------------------------------------#
-  # # Launch.
-  # #----------------------------------------------------------------------------#
-
-  # # Default port:
-  # if __name__ == '__main__':
-  #     app.run()
-
-  # # Or specify port manually:
-  # '''
-  # if __name__ == '__main__':
-  #     port = int(os.environ.get('PORT', 5000))
-  #     app.run(host='0.0.0.0', port=port)
-  # '''
