@@ -34,6 +34,38 @@ class Venue(db.Model):
     seeking_description = db.Column(db.String(500))
     shows = db.relationship('Show', backref= db.backref('venue', lazy=True))
 
+    def __init__(self, name, city, state, address, phone, image_link, facebook_link, genres, website_link, seeking_talent, seeking_description):
+        self.name = name
+        self.city = city
+        self.state = state
+        self.address = address
+        self.phone = phone
+        self.image_link = image_link
+        self.facebook_link = facebook_link
+        self.genres = genres
+        self.website_link = website_link
+        self.seeking_talent = seeking_talent
+        self.seeking_description = seeking_description
+
+    def insert(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def update(self):
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
+    # def format(self):
+    #     return {
+    #         "id": self.id,
+    #         "title": self.title,
+    #         "release date" : self.release_date
+        }
+    
+
 class Artist(db.Model):
     __tablename__ = 'artists'
 
