@@ -63,7 +63,7 @@ class Venue(db.Model):
     #         "id": self.id,
     #         "title": self.title,
     #         "release date" : self.release_date
-        }
+        # }
     
 
 class Artist(db.Model):
