@@ -4,9 +4,12 @@ from sqlalchemy import Column, Integer, String, Boolean
 from sqlalchemy.dialects.postgresql import ARRAY
 from flask_sqlalchemy import SQLAlchemy
 
+dbpath = os.environ['DATABASE_URL']
+
 db = SQLAlchemy()
 
 def setup_db(app):
+    app.config["SQLALCHEMY_DATABASE_URI"] = dbpath
     db.app = app
     db.init_app(app)
     db.create_all()
@@ -27,14 +30,13 @@ class Venue(db.Model):
     phone = db.Column(db.String(120))
     image_link = db.Column(db.String(500))
     facebook_link = db.Column(db.String(120))
-
     genres = db.Column(ARRAY(db.String(120)))
     website_link = db.Column(db.String(120))
     seeking_talent = db.Column(db.Boolean)
-    seeking_description = db.Column(db.String(500))
+    seeking_description = db.Column(db.String(500), nullable=True)
     shows = db.relationship('Show', backref= db.backref('venue', lazy=True))
 
-    def __init__(self, name, city, state, address, phone, image_link, facebook_link, genres, website_link, seeking_talent, seeking_description):
+    def __init__(self, name, city, state, address, phone, image_link, facebook_link, genres, website_link, seeking_talent):
         self.name = name
         self.city = city
         self.state = state
@@ -45,7 +47,6 @@ class Venue(db.Model):
         self.genres = genres
         self.website_link = website_link
         self.seeking_talent = seeking_talent
-        self.seeking_description = seeking_description
 
     def insert(self):
         db.session.add(self)
@@ -77,8 +78,6 @@ class Artist(db.Model):
     genres = db.Column(ARRAY(db.String(120)))
     image_link = db.Column(db.String(500))
     facebook_link = db.Column(db.String(120))
-
-
     website_link = db.Column(db.String(120))
     seeking_venue = db.Column(db.Boolean)
     seeking_description = db.Column(db.String(500))

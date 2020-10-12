@@ -30,7 +30,6 @@ db = SQLAlchemy()
 def create_app(test_config=None):
   app = Flask(__name__)
   app.config.from_object('config')
-  app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
   moment = Moment(app)
   CORS(app)
   setup_db(app)
