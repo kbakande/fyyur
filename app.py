@@ -15,7 +15,7 @@ from logging import Formatter, FileHandler
 from flask_wtf import Form
 from forms import *
 from customValidator import flash_errors
-import sys
+import sys, os
 from datetime import datetime
 from models import setup_db, Venue, Artist, Show
 
@@ -30,6 +30,7 @@ db = SQLAlchemy()
 def create_app(test_config=None):
   app = Flask(__name__)
   app.config.from_object('config')
+  app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
   moment = Moment(app)
   CORS(app)
   setup_db(app)
