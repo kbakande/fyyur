@@ -7,6 +7,8 @@ Fyyur is a musical venue and artist booking site that facilitates the discovery 
 
 Data models have been built to power the API endpoints for the Fyyur site by connecting to a PostgreSQL database for storing, querying, and creating information about artists and venues on Fyyur.
 
+The project is live on [Heroku](https://fyyur-place.herokuapp.com/).
+
 ### Overview
 
 fyyur is a fully functioning site that is capable of doing the following, using a PostgreSQL database:
@@ -80,7 +82,7 @@ To start and run the local development server,
 1. Initialize and activate a virtualenv:
   ```
   $ cd YOUR_PROJECT_DIRECTORY_PATH/
-  $ virtualenv --no-site-packages env
+  $ python3 -m venv venv 
   $ source env/bin/activate
   ```
 
@@ -91,7 +93,7 @@ To start and run the local development server,
 
 3. Run the development server:
   ```
-  $ export FLASK_APP=myapp
+  $ export FLASK_APP=app
   $ export FLASK_ENV=development # enables debug mode
   $ python3 app.py
   ```

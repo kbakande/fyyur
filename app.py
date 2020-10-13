@@ -242,6 +242,7 @@ def create_app(test_config=None):
   @app.route('/artists/<int:artist_id>')
   def show_artist(artist_id):
     artistWithID = Artist.query.get(artist_id)
+    print(artistWithID.name)
     pastShows, pastShowCount, upcomingShows, upcomingShowCount = [], 0, [], 0
     for show in artistWithID.shows:
       if show.start_time > datetime.now():
@@ -287,6 +288,7 @@ def create_app(test_config=None):
     existArtist = Artist.query.get(artist_id)
     if form.validate_on_submit():
       try:
+        print(existArtist.name)
         existArtist.name = request.form.get("name")
         existArtist.city = request.form.get("city")
         existArtist.state = request.form.get("state")
@@ -302,7 +304,7 @@ def create_app(test_config=None):
         db.session.commit()
       except:
         error = True
-        db.session.rollback()
+        # db.session.rollback()
         print(sys.exc_info())
       finally:
         if error:
@@ -312,6 +314,8 @@ def create_app(test_config=None):
         else:
           flash('Artist  ' + existArtist.name + ' has been edited successfully')
           db.session.close()
+          artist = Artist.query.get(artist_id)
+          print(artist_id)          
           return redirect(url_for('show_artist', artist_id=artist_id))
     else:
         flash_errors(form)
